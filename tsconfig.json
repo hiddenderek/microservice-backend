@@ -1,34 +1,21 @@
 {
     "compilerOptions": {
-      "module": "NodeNext",
-      "moduleResolution": "NodeNext",
-      "declaration": true,
-      "declarationMap": true,
-      "noImplicitAny": false,
-      "removeComments": true,
-      "noEmit": true,
-      "lib": ["es2020"],
-      "esModuleInterop": true,
-      "emitDecoratorMetadata": true,
-      "experimentalDecorators": true,
-      "allowSyntheticDefaultImports": true,
-      "useDefineForClassFields": true,
-      "useUnknownInCatchVariables": false,
-      "baseUrl": ".",
-      "skipLibCheck": true,
-      "strict": true,
-      "target": "ES2020",
-      "sourceMap": true,
-      "allowJs": true,
-      "checkJs": true,
-      "outDir": "./dist"
+        "module": "ESNext",
+        "target": "ESNext",
+        "moduleResolution": "node",
+        "outDir": "dist",
+        "noImplicitAny": false,
+        "esModuleInterop": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true,
+        "useDefineForClassFields": true,
+        "useUnknownInCatchVariables": false,
+        "resolveJsonModule": true,
+        "skipLibCheck": true,
+        "strict": true,
+        "sourceMap": true
     },
-      "include": [
-      "**/*.ts"
-    ],
-      "exclude": [
-      "node_modules",
-      "dist",
-      "test"
-    ]
-  }
+    "include": ["src/**/*.ts", "src/lib/sqlTag.ts", "src/lib/misc/sqlTemplateTag.ts"],
+    "exclude": ["node_modules", "dist"]
+}

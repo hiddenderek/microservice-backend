@@ -2,7 +2,7 @@ import { defineConfig } from 'tsup';
 
 export default defineConfig({
     clean: true,
-    target: 'esnext',
+    target: 'es2022',
     treeshake: true,
     minify: true,
-})
+});
