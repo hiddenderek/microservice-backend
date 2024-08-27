@@ -83,4 +83,17 @@ export class TestController {
             throw new InternalServerErrorException(e, 'Unknown Error');
         }
     }
+
+    @ApiOperation({ summary: 'Posts test data' })
+    @ApiResponse({ status: 200, description: 'Returns test data' })
+    @Delete()
+    async delete(        
+      @Query('testid') testId: string
+    ): Promise<Test | null> {
+        try {
+            return await this.articleService.deleteTestData(testId);
+        } catch (e) {
+            throw new InternalServerErrorException(e, 'Unknown Error');
+        }
+    }
 }

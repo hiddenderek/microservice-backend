@@ -15,13 +15,13 @@ export class TestService extends DatabaseHelper<Test> {
 
     async recordExternalData(id: string) {
         try {
-            const serviceToken = '1234';
+            const serviceToken = '<YOUR TOKEN>';
             if (id && serviceToken) {
                 const apiResult = await this.ApiService.getExternalData(id, serviceToken);
-                if (apiResult?.testValue) {
+                if (apiResult) {
                     const data = {
                         testId: id,
-                        testValue: apiResult?.testValue,
+                        testValue: apiResult,
                     };
                     const result = this.upsertTestData(data);
                     return result;
@@ -116,4 +116,20 @@ export class TestService extends DatabaseHelper<Test> {
             });
         }
     }
+
+    async deleteTestData(testId: string): Promise<Test | null> {
+      try {
+        const query = sql`WHERE test_id = ${testId}`;
+        const result = await this.delete({ query });
+        if (result && result.length === 1) {
+            return result[0];
+        }
+        return null;
+    } catch (error) {
+        throw new InternalServerErrorException('Error finding test data', {
+            cause: error,
+            description: error?.code,
+        });
+    }
+  }
 }

@@ -1,5 +1,6 @@
 import { QueryConfig } from 'pg';
 import {
+    deleteQuery,
     executeQuery,
     insertQuery,
     selectOneQuery,
@@ -88,5 +89,15 @@ export class DatabaseHelper<T = Record<string, any>> {
             query,
             returnParams,
         );
+    }
+
+    async delete<A = T>({
+        query,
+        returnParams,
+    }: {
+        query?: QueryConfig;
+        returnParams?: (keyof A)[];
+    }) {
+        return await deleteQuery<A>(this.database, this?.tableName ?? '', query, returnParams);
     }
 }

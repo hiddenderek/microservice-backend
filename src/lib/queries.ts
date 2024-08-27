@@ -37,7 +37,6 @@ export const selectOneQuery = async <T>(
     tableName: string,
     query: QueryConfig,
     selectParams?: (keyof T)[],
-    ...o: T[]
 ): Promise<T | null> => {
     const selectQuery = concatSql(
         rawText(
@@ -106,9 +105,7 @@ export const upsertQuery = async <T>(
     query?: QueryConfig,
     returnParams?: (keyof T)[],
 ): Promise<T | null> => {
-    console.log('hi');
     const fieldsString = fields(o1 as Record<string, any>);
-    console.log('ehllo');
     const insertQuery = concatSql(
         rawText(`INSERT INTO ${tableName} (${fieldsString}) VALUES`),
         rawText(`(`),
@@ -119,11 +116,27 @@ export const upsertQuery = async <T>(
         query,
         rawText(`RETURNING ${returnParams?.length ? fieldsAsCamel(returnParams) : '*'}`),
     );
-    console.log('wow');
     const result = await executeQuery<T>(db, insertQuery);
-    console.log('wowers');
     if (result.length === 1) {
         return result[0];
     }
     return null;
+};
+
+export const deleteQuery = async <T>(
+    db: string,
+    tableName: string,
+    query?: QueryConfig | undefined,
+    returnParams?: (keyof T)[],
+): Promise<T[]> => {
+    const deleteQuery = concatSql(
+        rawText(
+            `DELETE FROM ${tableName}`,
+        ),
+        query,
+        rawText(
+            `RETURNING ${returnParams?.length ? fieldsAsCamel(returnParams) : '*'}`
+        )
+    );
+    return (await executeQuery(db, deleteQuery)) ?? [];
 };

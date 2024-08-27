@@ -4,7 +4,7 @@
     "description": "order app",
     "main": "index.js",
     "scripts": {
-        "dev": "tsup src/index.ts --watch --onSuccess 'node dist/index.cjs'",
+        "dev": "tsup src/index.ts --watch --onSuccess 'node dist/index.js'",
         "format": "npm run prettier -- --write --list-different",
         "prettier": "prettier . --ignore-unknown",
         "build": "tsup src/index.ts",
@@ -48,6 +48,5 @@
         "ts-jest": "^29.2.5",
         "ts-node": "^10.9.2",
         "tsup": "^8.0.2"
-    },
-    "type": "module"
+    }
 }

@@ -17,7 +17,7 @@ describe('test', () => {
 
     beforeEach(() => {
         mockedApiService.mockImplementation(async () => {
-            return { testValue: 'external' };
+            return 'external' 
         });
     });
 
@@ -94,6 +94,7 @@ describe('test', () => {
                 wowFactor: 'coolio',
             },
         });
+        
         expect(result2.body).toEqual({
             testId: result.body.testId,
             testValue: '12345',
@@ -198,5 +199,26 @@ describe('test', () => {
             testValue: '12345',
             wowFactor: 'cool',
         });
+    });
+
+    it('should delete test data', async () => {
+        const result1 = await mockRequest({
+            path: `/tests`,
+            action: 'post',
+            body: {
+                testValue: '12345',
+                wowFactor: 'cool',
+            },
+        });
+        await mockRequest({
+            path: `/tests?testid=${result1.body.testId}`,
+            action: 'delete',
+        });
+        const result = await mockRequest({
+            path: `/tests?${new URLSearchParams({ testvalue: '12345', wowfactor: 'cool' }).toString()}`,
+            action: 'get',
+            token,
+        });
+        expect(result.body.length).toEqual(0);
     });
 });
