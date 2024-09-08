@@ -1,4 +1,4 @@
-export default {
+module.exports = {
     coverageThreshold: {
         global: {
             // TODO: bump this as we go up
