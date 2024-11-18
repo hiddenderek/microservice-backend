@@ -10,10 +10,11 @@ import { ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
     configDotenv();
     const expressInstance = new ExpressAdapter();
-    const app = await NestFactory.create(ApplicationModule, expressInstance);
+    const app = await NestFactory.create(ApplicationModule, expressInstance, {
+        logger: ['log', 'error', 'warn', 'debug', 'verbose']
+    });
     app.setGlobalPrefix('api');
     app.useGlobalPipes(new ValidationPipe());
-
     const options = new DocumentBuilder()
         .setTitle('NestJS Realworld Example App')
         .setDescription('The Realworld API description')

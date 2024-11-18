@@ -2,11 +2,14 @@ import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/c
 import { TestController } from './test.controller';
 import { TestService } from './test.service';
 import { AuthMiddleware } from '../../auth.middleware';
-import { ApiService } from '../apiManager/api.service';
+import { TestDataService } from './testData.service';
 
 @Module({
     imports: [],
-    providers: [TestService],
+    providers: [
+        TestService,
+        TestDataService
+    ],
     controllers: [TestController],
 })
 export class TestModule implements NestModule {

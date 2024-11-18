@@ -8,16 +8,18 @@ import {
     Param,
     Controller,
     InternalServerErrorException,
+    Inject,
 } from '@nestjs/common';
 import { TestService } from './test.service';
 import { Test } from './test.dto';
 import { ApiBearerAuth, ApiResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { REQUEST } from '@nestjs/core';
 
 @ApiBearerAuth()
 @ApiTags('test')
 @Controller('tests')
 export class TestController {
-    constructor(private readonly articleService: TestService) {}
+    constructor(private readonly articleService: TestService, @Inject(REQUEST) private readonly request: { token: string }) {}
 
     @ApiOperation({ summary: 'Gets test data' })
     @ApiResponse({ status: 200, description: 'Returns test data' })

@@ -10,7 +10,7 @@
         "build": "tsup src/index.ts",
         "build-ci": "npm ci && npm run build && npm prune --production",
         "test": "jest --runInBand -c jest.config.js",
-        "test:integration": "NODE_ENV=migrate DB_USERID=postgres DB_PASSWORD=Secret1234 DB_PORT=3307 DB_NAME=backenddb db-migrate up && jest --runInBand -c jest.config.integration.js --detectOpenHandles",
+        "test:integration": "NODE_ENV=migrate DB_USERID=postgres DB_PASSWORD=Secret1234 DB_PORT=3307 DB_NAME=backenddb db-migrate up && NODE_ENV=development jest --runInBand -c jest.config.integration.js --detectOpenHandles",
         "start": "node dist/index.js"
     },
     "author": "",

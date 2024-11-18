@@ -14,6 +14,7 @@ export class AuthMiddleware implements NestMiddleware {
         const authHeaders = req.headers.authorization;
         if (authHeaders && (authHeaders as string).split(' ')[1]) {
             const token = (authHeaders as string).split(' ')[1];
+            req.token = token;
             // 1. Validate token structure
             // 2. Verify token (using secret)
             // 3. Check user group from token and block route access
